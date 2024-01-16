@@ -1,0 +1,17 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : 16 January 2024 19:55:16
+   Source : d:\test_master\
+     Dest : z:\test_slave\
+
+    Files : *.*
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /PURGE /MIR /MT:16 /R:1000000 /W:5 
+
+------------------------------------------------------------------------------
+
+2024/01/16 19:55:16 ERROR 2 (0x00000002) Accessing Source Directory d:\test_master\
+The system cannot find the file specified.
