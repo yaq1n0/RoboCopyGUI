@@ -1,6 +1,11 @@
+
 import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+
+import 'robocopy.dart';
 
 // enable verbose logging for debugging purposes 
 bool verbose = true;
@@ -71,9 +76,19 @@ class RoboCopyGUIAppHomeState extends State<RoboCopyGUIAppHome> {
     if (verbose) log('$result added to destination directories');
   }
 
-  void readOutputFile() {
+  void readOutputFile([String path = 'robocopy_log.txt']) async{
     //TODO: implement reading robocopy_output.txt to outputfileText
-    String path = '';
+
+    if (verbose) log('main.dart: readOutputfilePlaceholder method called');
+
+    outputFileText = await File(path).readAsString();
+
+    setState(() {});
+  }
+
+  void readOutputFilePlaceholder() {
+    // TODO: maybe delete this? lol
+    if (verbose) log('main.dart: readOutputfilePlaceholder method called');
 
     String long_newline = '';
     for (int i = 0; i < 10; i++) {
@@ -84,14 +99,27 @@ class RoboCopyGUIAppHomeState extends State<RoboCopyGUIAppHome> {
     }
 
     setState(() {});
-
-    if (verbose) log('readOutputfile method called');
   }
 
-  void runRoboCopy() {
+
+  void runRoboCopy() async {
     //TODO: implement actual shell interface code to run roboCopy
-    
-    if (verbose) log('runRoboCopy method called');
+    if (verbose) log('main.dart: runRoboCopy method called');
+
+    if (srcDirs.length != destDirs.length) {
+      // mismatching number of sources to destinations
+      // TODO: needs to be a way to clear sources and destinations
+      /* TODO: instructions need to specify that the order of the sources and destinations are important 
+      ex: src 1 will copy to dest 1 and so on */
+      return; 
+    } else {
+      for (int i = 0; i < srcDirs.length; i++) {
+        String src = srcDirs[i];
+        String dest = destDirs[i];
+
+        copy(src, dest);
+      }
+    }
   }
   
   @override
